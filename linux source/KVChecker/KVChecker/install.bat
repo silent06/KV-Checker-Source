@@ -1,0 +1,1 @@
+dotnet add package System.Security.Permissions --version 6.0.0
