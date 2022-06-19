@@ -120,8 +120,8 @@ namespace KVChecker_API
                 byte[] array2 = KVChecker.GenerateTimeStamp();
                 Array.Copy(KVChecker.RC4HMACEncrypt(xmacsLogonKey, 16, array2, array2.Length, 1), 0, array, 176, 52);
                 UdpClient udpClient = new UdpClient();                
-                udpClient.Connect("XEAS.gtm.XBOXLIVE.COM", 88);
-                Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> Connecting to XEAS.gtm.XBOXLIVE.COM >> ", ConsoleColor.Green);
+                udpClient.Connect("XEAS.XBOXLIVE.COM", 88);
+                Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> Connecting to XEAS.XBOXLIVE.COM >> ", ConsoleColor.Green);
                 udpClient.Send(array, array.Length);
                 IPEndPoint ipendPoint = new IPEndPoint(0L, 0);
                 int num = 0;
