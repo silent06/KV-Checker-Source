@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-//using System.Windows.Forms;
 using Core;
 
 namespace KVChecker_API
@@ -114,15 +113,15 @@ namespace KVChecker_API
                 byte[] consoleId = endianIO.Reader.ReadBytes(5);
                 endianIO.Reader.BaseStream.Position = 2504L;
                 byte[] sourceArray = SHA1.Create().ComputeHash(endianIO.Reader.ReadBytes(168));
-                byte[] array = File.ReadAllBytes(KVChecker.AppDataDir + "apreq1.bin");
+                byte[] array = File.ReadAllBytes(KVChecker.AppDataDir + "apReq1.bin");
                 byte[] sourceArray2 = KVChecker.ComputeClientName(consoleId);
                 Array.Copy(sourceArray2, 0, array, 258, 24);
                 Array.Copy(sourceArray, 0, array, 36, 20);
                 byte[] array2 = KVChecker.GenerateTimeStamp();
                 Array.Copy(KVChecker.RC4HMACEncrypt(xmacsLogonKey, 16, array2, array2.Length, 1), 0, array, 176, 52);
                 UdpClient udpClient = new UdpClient();                
-                udpClient.Connect("XEAS.gtm.XBOXLIVE.COM", 88);
-                Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> Connecting to XEAS.gtm.XBOXLIVE.COM >> ", ConsoleColor.Green);
+                udpClient.Connect("XEAS.XBOXLIVE.COM", 88);
+                Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> Connecting to XEAS.XBOXLIVE.COM >> ", ConsoleColor.Green);
                 udpClient.Send(array, array.Length);
                 IPEndPoint ipendPoint = new IPEndPoint(0L, 0);
                 int num = 0;
@@ -157,7 +156,7 @@ namespace KVChecker_API
                 udpClient.Close();
                 byte[] array4 = new byte[16];
                 Array.Copy(array3, array3.Length - 16, array4, 0, 16);
-                byte[] array5 = File.ReadAllBytes(KVChecker.AppDataDir + "apreq2.bin");
+                byte[] array5 = File.ReadAllBytes(KVChecker.AppDataDir + "apReq2.bin");
                 Array.Copy(sourceArray2, 0, array5, 286, 24);
                 Array.Copy(sourceArray, 0, array5, 36, 20);
                 byte[] array6 = KVChecker.GenerateTimeStamp();
@@ -420,7 +419,7 @@ namespace KVChecker_API
         // Token: 0x06000035 RID: 53 RVA: 0x000074E0 File Offset: 0x000056E0
         private static RSACryptoServiceProvider LoadXmacsKey()
         {
-            byte[] RSAKey = File.ReadAllBytes("Keys\\XMACS_pub.bin");
+            byte[] RSAKey = File.ReadAllBytes("Keys/XMACS_pub.bin");
             EndianIO endianIO = new EndianIO(RSAKey, EndianStyle.BigEndian)
             {
                 Position = 4L
@@ -534,7 +533,7 @@ namespace KVChecker_API
         }
 
         // Token: 0x04000047 RID: 71
-        private static string AppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DirectKVs_Checker\\";
+        private static string AppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/var/www/html/kvchecker/Keys/";
 
         // Token: 0x04000048 RID: 72
         private int banned;
