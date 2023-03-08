@@ -37,7 +37,7 @@ namespace KVChecker_API
                 else if (num == 2)
                 {
 
-                    Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> KV Banned! >> ", ConsoleColor.Green);
+                    Tools.AppendText($"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()} >> KV Error! >> ", ConsoleColor.Green);
                 }
                 File.Delete("bin\\kv.bin");
                 Client.Client.Close();
